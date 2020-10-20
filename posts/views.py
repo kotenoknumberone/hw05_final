@@ -1,10 +1,4 @@
-from django.shortcuts import render, get_object_or_404
-
-from .models import Post, Group, User, Comment, Follow
-
-from .forms import PostForm, CommentForm
-
-from django.shortcuts import redirect
+from django.shortcuts import render, get_object_or_404, redirect
 
 from django.urls import reverse
 
@@ -13,6 +7,10 @@ from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 
 from django.views.decorators.cache import cache_page
+
+from .models import Post, Group, User, Comment, Follow
+
+from .forms import PostForm, CommentForm
 
 
 @cache_page(1 * 20, key_prefix='index_page')
@@ -142,7 +140,7 @@ def add_comment(request, username, post_id):
 def follow_index(request):
     posts = Post.objects.filter(
         author__following__user=request.user
-    ).all()
+    )
     paginator = Paginator(posts, 7)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)

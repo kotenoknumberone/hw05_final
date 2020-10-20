@@ -121,7 +121,7 @@ class TestStringMethods(TestCase):
     def test_not_img(self):
         with open('posts/test.txt', 'rb') as img:
             post = self.client.post(reverse('post_edit',
-                                            args=[self.post.author, 
+                                            args=[self.post.author,
                                                   self.post.id]),
                                     {
                 'text': self.text,
